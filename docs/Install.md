@@ -36,6 +36,7 @@ This guide helps you build and install openNetVM.
 
 2. Initialize DPDK submodule
     ```sh
+    cd dpdk
     git submodule init && git submodule update
     ```
 
@@ -44,7 +45,7 @@ This guide helps you build and install openNetVM.
 3 - Set up Environment
 ----------------------
 
-1. Set environment variable ONVM_HOME to the path of the openNetVM source directory.
+1. Set environment variable `ONVM_HOME` to the path of the openNetVM source directory.
     ```sh
     echo export ONVM_HOME=$(pwd) >> ~/.bashrc
     ```
@@ -54,27 +55,33 @@ This guide helps you build and install openNetVM.
     ls dpdk/config/
     ```
 
-3. Set environment variable RTE_SDK to the path of the DPDK library.  Make sure that you are in the DPDK directory
+3. Set environment variable `RTE_SDK` to the path of the DPDK library.  Make sure that you are in the DPDK directory
     ```sh
     echo export RTE_SDK=$(pwd) >> ~/.bashrc
     ```
 
-4. Set environment variable RTE_TARGET to the target architecture of your system.  This is found in step 3.1
+4. Set environment variable `RTE_TARGET` to the target architecture of your system.  This is found in step 3.1
     ```sh
     echo export RTE_TARGET=x86_64-native-linuxapp-gcc  >> ~/.bashrc
     ```
 
-5. Set environment variable ONVM_NUM_HUGEPAGES and ONVM_NIC_PCI.
+5. Set environment variable `ONVM_NUM_HUGEPAGES` and `ONVM_NIC_PCI`.
 
-    ONVM_NUM_HUGEPAGES is a variable specifies how many hugepages are reserved by the user, default value of this is 1024, which could be set using:
+    `ONVM_NUM_HUGEPAGES` is a variable specifies how many hugepages are reserved by the user, default value of this is 1024, which could be set using:
     ```sh
     echo export ONVM_NUM_HUGEPAGES=1024 >> ~/.bashrc
     ```
 
-    ONVM_NIC_PCI is a variable that specifies NIC ports to be bound to DPDK.  If ONVM_NIC_PCI is not specified, the default action is to bind all non-active 10G NIC ports to DPDK.
+    `ONVM_NIC_PCI` is a variable that specifies NIC ports to be bound to DPDK.  If `ONVM_NIC_PCI` is not specified, the default action is to bind all non-active 10G NIC ports to DPDK. To retrieve the PCI codes of your NIC ports you may use the `ethtool` command:
     ```sh
-    export ONVM_NIC_PCI=" 07:00.0 07:00.1 "
+    ethtool -i <interface>
     ```
+    Then add a list of NICs to the `ONVM_NIC_PCI` variable:
+    ```sh
+    echo export ONVM_NIC_PCI=" 07:00.0 07:00.1 " >> ~/.bashrc
+    ```
+    Replacing `" 07:00.0 07:00.1 "` by the list of NICs you want to bind do DPDK.
+    
 6. Source your shell rc file to set the environment variables:
     ```sh
     source ~/.bashrc
@@ -89,7 +96,7 @@ This guide helps you build and install openNetVM.
 ------------------------------
 
 1. Run the [install script](../scripts/install.sh) to compile DPDK and configure hugepages.
-    ```sh¬
+    ```sh
     cd scripts
     ./install.sh
     ```
@@ -161,7 +168,7 @@ After a reboot, you can configure your environment again (load kernel modules an
 Also, please double check if the environment variables from [step 3](#3-set-up-environment) are initialized.  If they are not, please go to [step 3](#3-set-up-environment)
 
 Troubleshooting
---
+---------------
 
 1. **Huge Page Configuration**
 
