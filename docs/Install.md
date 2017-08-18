@@ -2,8 +2,8 @@
 
 This guide helps you build and install openNetVM.
 
-1. Check System
---
+1 - Check System
+----------------
 
 1. Make sure your NIC is supported by Intel DPDK by comparing the following command's ouptput against DPDK's [supported NIC list](http://dpdk.org/doc/nics).
 
@@ -26,8 +26,8 @@ This guide helps you build and install openNetVM.
     locate uio
     ```
 
-2. Setup Repositories
---
+2 - Setup Repositories
+----------------------
 
 1. Download source code
     ```sh
@@ -41,8 +41,8 @@ This guide helps you build and install openNetVM.
 
  **From this point forward, this guide assumes that you are working out of the openNetVM source directory.**
 
-3. Set up Environment
---
+3 - Set up Environment
+----------------------
 
 1. Set environment variable ONVM_HOME to the path of the openNetVM source directory.
     ```sh
@@ -85,8 +85,8 @@ This guide helps you build and install openNetVM.
     sudo sh -c "echo 0 > /proc/sys/kernel/randomize_va_space"
     ```
 
-8. Configure and compile DPDK
---
+4 - Configure and compile DPDK
+------------------------------
 
 1. Run the [install script](../scripts/install.sh) to compile DPDK and configure hugepages.
     ```sh¬
@@ -96,8 +96,8 @@ This guide helps you build and install openNetVM.
 
     The [install script](../scripts/install.sh) will automatically run the [environment setup script](../scripts/setup_environment.sh), which configures your local environment.  This should be run once for every reboot, as it loads the appropraite kernel modules and can bind your NIC ports to the DPDK driver.
 
-5. Run DPDK HelloWorld Application
---
+5 - Run DPDK HelloWorld Application
+-----------------------------------
 
 1. Enter DPDK HelloWorld directory and compile the application:
 
@@ -119,8 +119,8 @@ This guide helps you build and install openNetVM.
     hello from core 0
     ```
 
-6. Make and test openNetVM
---
+6 - Make and test openNetVM
+---------------------------
 
 1. Compile openNetVM manager and libraries
 
@@ -154,8 +154,8 @@ This guide helps you build and install openNetVM.
 
     Once the NF's initialization is completed, you should see the NF display how many packets it is sending to itself.  Go back to the manager to verify that `NF 1` is receiving data.  If this is the case, the openNetVM is working correctly.
 
-7. Configuring environment post reboot
---
+7 - Configuring environment post reboot
+---------------------------------------
 After a reboot, you can configure your environment again (load kernel modules and bind the NIC) by running the [environment setup script](../scripts/setup_environment.sh).
 
 Also, please double check if the environment variables from [step 3](#3-set-up-environment) are initialized.  If they are not, please go to [step 3](#3-set-up-environment)
